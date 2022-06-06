@@ -1,0 +1,70 @@
+REQUERIMIENTOS TABLAS EMPLOYEE:
+
+Una tabla principal EMPLOYEE, donde se registran los campos comunes a
+todos los tipos de empleados.
+
+Una tabla extra por cada tipo de empleado BARTENDER, CERVECERO
+COCINERO, MOZO y SOCIO. Estas debes relacionarse con la tabla común
+EMPLEADO por id, el id de EMPLOYEE será autoincremental mientras que
+el id de las sub-tablas será una clave foranea a ese id de EMPLOYEE.
+
+EMPLOYEE:
+id -> int
+active -> bool
+deleted -> bool
+
+SUBTABLAS EMPLOYEE:
+id -> int
+
+EMPLOYEE_ATTENDANCE
+employee_id -> int
+attended_on -> datetime
+
+REQUERIMIENTOS TABLA PRODUCT:
+id -> int
+title -> string
+product_type -> int
+price -> float
+
+REQUERIMIENTOS TABLA ORDER:
+id -> int
+product_id -> int
+quantity -> int
+table_id -> int
+client_name -> string
+order_code -> string
+state -> int
+photo_path -> string(null)
+estimated_completion_on -> datetime(null)
+completed_on -> datetime(null)
+employee_id -> int(null)
+
+REQUERIMIENTOS TABLA CLIENT_TABLE:
+id -> int
+table_code -> string
+state -> int
+
+TABLA historial de orders y empleados?
+
+TABLA TABLE_REVIEW:
+table_id -> int
+reviewed_on -> dateTime
+score -> int
+description -> varchar(66)
+
+TABLA RESTAURANT_REVIEW
+reviewed_on -> dateTime
+score -> int
+description -> varchar(66)
+
+TABLA WAITER_REVIEW
+waiter_id -> int
+reviewed_on -> dateTime
+score -> int
+description -> varchar(66)
+
+TABLA COOK_REVIEW:
+cook_id -> int
+reviewed_on -> dateTime
+score -> int
+description -> varchar(66)
