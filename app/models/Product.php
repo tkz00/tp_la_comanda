@@ -2,15 +2,22 @@
 
     declare(strict_types=1);
 
-    require_once __DIR__ . '/../enums/ProductTypeEnum.php';
-    require_once __DIR__ . '/../db/DBAccess.php';
+    use Illuminate\Database\Eloquent\Model;
 
-    class Product implements JsonSerializable
+    require_once __DIR__ . '/../enums/ProductTypeEnum.php';
+    // require_once __DIR__ . '/../db/DBAccess.php';
+    // require_once __DIR__ . '/../db/eloquentDatabase.php';
+    require_once __DIR__ . '/../db/database.php';
+
+    class Product extends Model implements JsonSerializable
     {
+        protected $table = 'product';
         private $id;
         private $title;
         private $type;
         private $price;
+        private $created_at;
+        private $updated_at;
 
         public function SetTitle(string $newTitle)
         {
@@ -32,27 +39,32 @@
             $this->price = $newPrice;
         }
 
+        // public static function GetProducts()
+        // {
+        //     $objDBAccess = DBAccess::GetInstance();
+        //     $consulta = $objDBAccess->PrepareQuery("SELECT * FROM product");
+        //     $consulta->execute();
+    
+        //     $test = $consulta->fetchAll(PDO::FETCH_CLASS, 'product');
+        //     return $test;
+        // }
+
         public static function GetProducts()
         {
-            $objDBAccess = DBAccess::GetInstance();
-            $consulta = $objDBAccess->PrepareQuery("SELECT * FROM product");
-            $consulta->execute();
-    
-            $test = $consulta->fetchAll(PDO::FETCH_CLASS, 'product');
-            return $test;
+            return Product::all();
         }
 
-        public function SaveToDB()
-        {
-            $DBAccessObj = DBAccess::GetInstance();
-            $consulta = $DBAccessObj->PrepareQuery("INSERT INTO product (title, type, price) VALUES (:title, :type, :price)");
-            $consulta->bindValue(':title', $this->title, PDO::PARAM_STR);
-            $consulta->bindValue(':type', $this->type, PDO::PARAM_STR);
-            $consulta->bindValue(':price', $this->price);
-            $consulta->execute();
+        // public function SaveToDB()
+        // {
+        //     $DBAccessObj = DBAccess::GetInstance();
+        //     $consulta = $DBAccessObj->PrepareQuery("INSERT INTO product (title, type, price) VALUES (:title, :type, :price)");
+        //     $consulta->bindValue(':title', $this->title, PDO::PARAM_STR);
+        //     $consulta->bindValue(':type', $this->type, PDO::PARAM_STR);
+        //     $consulta->bindValue(':price', $this->price);
+        //     $consulta->execute();
     
-            return $DBAccessObj->GetLastId();
-        }
+        //     return $DBAccessObj->GetLastId();
+        // }
 
         public function jsonSerialize()
         {

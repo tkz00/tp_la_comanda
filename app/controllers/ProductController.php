@@ -1,12 +1,15 @@
 <?php
 
+    require_once __DIR__ . '/../../vendor/autoload.php';
     require_once __DIR__ . '/../models/Product.php';
+    require_once __DIR__ . '/../db/database.php';
 
     class ProductController
     {
         public function GetProducts($request, $response, $args)
         {
             $list = Product::GetProducts();
+
             $payload = json_encode(array("Product List" => $list));
   
             $response->getBody()->write($payload);

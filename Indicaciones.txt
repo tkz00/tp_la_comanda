@@ -1,0 +1,6 @@
+- Reorganizar entidades, order tiene que tener varios "productos", hacer tabla intermedia de
+	pedidos que relacione la orden con sus pedidos, esta tabla intermedia es la que
+	debe tener el estado, las horas de entrega esperada y entrega, así se puede entregar
+	un producto de la orden sin entregar la orden completa.
+- Implementar middleware y jwt
+- Implementar ORM
