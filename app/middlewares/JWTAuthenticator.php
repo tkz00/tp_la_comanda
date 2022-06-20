@@ -51,8 +51,7 @@
         {
             return JWT::decode(
                 $token,
-                self::$secretKey,
-                self::$encryptionAlgorithm
+                new Key(self::$secretKey, self::$encryptionAlgorithm)
             )->data;
         }
 

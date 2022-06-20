@@ -3,14 +3,15 @@
     declare(strict_types=1);
 
     require_once __DIR__ . '/../enums/EmployeeTypeEnum.php';
-    require_once __DIR__ . '/../db/DBAccess.php';
 
-    class Employee implements JsonSerializable
+    use Illuminate\Database\Eloquent\Model;
+
+    class Employee extends Model implements JsonSerializable
     {
-        private $id;
-        private $active;
-        private $deleted;
-        private $type;
+        protected $table = 'Employee';
+        public $timestamps = false;
+
+
 
         public function SetType($newType)
         {
@@ -22,39 +23,27 @@
             $this->type = $newType;
         }
 
-        // Cannot have a constructor bc the pdo fetch wants to use it without sending the two required parameters
-        // public function __construct(int $newId, int $type)
-        // {
-        //     $this->id = $newId;
-        //     $this->active = true;
-        //     $this->deleted = false;
-        //     $this->type = EmployeeTypeEnum::toString($type);
-        // }
-
-        // public static function NewEmployee(int $newId, int $type)
-        // {
-        //     $newEmployee = new Employee();
-        //     $newEmployee->id = $newId;
-        //     $newEmployee->active = true;
-        //     $newEmployee->deleted = false;
-        //     $newEmployee->type = EmployeeTypeEnum::toString($type);
-        //     return $newEmployee;
-        // }
+        public function SetName($name)
+        {
+            $this->name = $name;
+        }
 
         public static function GetEmployees()
         {
-            $objDBAccess = DBAccess::GetInstance();
-            $consulta = $objDBAccess->PrepareQuery("SELECT * FROM employee");
-            $consulta->execute();
-    
-            $test = $consulta->fetchAll(PDO::FETCH_CLASS, 'Employee');
-            return $test;
+            return Employee::all();;
+        }
+
+        public static function GetEmployeeByName($name)
+        {
+            $employee = Employee::where('name', $name)->first();
+            return $employee;
         }
 
         public function SaveToDB()
         {
             $DBAccessObj = DBAccess::GetInstance();
-            $consulta = $DBAccessObj->PrepareQuery("INSERT INTO employee (type) VALUES (:type)");
+            $consulta = $DBAccessObj->PrepareQuery("INSERT INTO employee (name, type) VALUES (:name, :type)");
+            $consulta->bindValue(':name', $this->name, PDO::PARAM_STR);
             $consulta->bindValue(':type', $this->type, PDO::PARAM_STR);
             $consulta->execute();
     
@@ -65,6 +54,7 @@
         {
             return [
                 'id' => $this->id,
+                'name' => $this->name,
                 'active' => $this->active,
                 'deleted' => $this->deleted,
                 'type' => $this->type

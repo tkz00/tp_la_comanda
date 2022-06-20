@@ -2,13 +2,12 @@
 
     require_once __DIR__ . '/../../vendor/autoload.php';
     require_once __DIR__ . '/../models/Product.php';
-    require_once __DIR__ . '/../db/database.php';
 
     class ProductController
     {
         public function GetProducts($request, $response, $args)
         {
-            $list = Product::GetProducts();
+            $list = Product::all();
 
             $payload = json_encode(array("Product List" => $list));
   
@@ -33,7 +32,7 @@
                 $product->SetType($type);
                 $product->SetPrice($price);
 
-                $product->SaveToDB();
+                $product->save();
     
                 $payload = json_encode(array("mensaje" => "Producto creado con exito"));
     

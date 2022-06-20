@@ -9,21 +9,12 @@
 
   require __DIR__ . '/../vendor/autoload.php';
 
-  // require_once './db/DBAccess.php';
-  // require_once __DIR__ . './db/eloquentDatabase.php';
-  require_once __DIR__ . './db/database.php';
-
-  require_once './middlewares/JWTAuthenticator.php';
-  require_once './middlewares/JWTAuthenticatorMW.php';
-
-  require_once './controllers/EmployeeController.php';
-  require_once './controllers/ProductController.php';
-  require_once './controllers/TableController.php';
-  require_once './controllers/OrderController.php';
-
   // Load ENV
   $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
   $dotenv->safeLoad();
+
+  // require_once './db/DBAccess.php';
+  // require_once __DIR__ . './db/eloquentDatabase.php';
 
   // Set Container on app
   $container = new Container();

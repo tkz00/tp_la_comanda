@@ -2,24 +2,14 @@
 
     declare(strict_types=1);
 
-use Illuminate\Contracts\Auth\StatefulGuard;
+    use Illuminate\Database\Eloquent\Casts\Attribute;
+    use Illuminate\Database\Eloquent\Model;
 
-    require_once __DIR__ . '/../enums/OrderStateEnum.php';
-    require_once __DIR__ . '/../db/DBAccess.php';
-
-    class Order implements JsonSerializable
+    // class Order extends Model implements JsonSerializable
+    class Order extends Model
     {
-        public $id;
-        public $product_id;
-        public $quantity;
-        public $table_id;
-        public $client_name;
-        public $order_code;
-        private $state;
-        public $photo_path;
-        public $estimated_completion_on;
-        public $completed_on;
-        public $employee_id;
+        protected $table = 'order';
+        public $timestamps = false;
 
         public function SetState($newState)
         {
@@ -31,47 +21,41 @@ use Illuminate\Contracts\Auth\StatefulGuard;
             $this->state = $newState;
         }
 
-        public static function GetOrders()
+        public function products()
         {
-            $objDBAccess = DBAccess::GetInstance();
-            $consulta = $objDBAccess->PrepareQuery("SELECT * FROM la_comanda.order");
-            $consulta->execute();
-    
-            $test = $consulta->fetchAll(PDO::FETCH_CLASS, 'order');
-            return $test;
+            // Check attach and sync methods from Eloquent
+            return $this->belongsToMany(Product::class, 'Order_Contains_Product', 'order_id', 'product_id')->withPivot('quantity');
         }
 
-        public function SaveToDB()
-        {
-            $DBAccessObj = DBAccess::GetInstance();
-            $consulta = $DBAccessObj->PrepareQuery("INSERT INTO la_comanda.order (product_id, quantity, table_id, client_name, order_code) VALUES (:product_id, :quantity, :table_id, :client_name, :order_code)");
-            // $consulta = $DBAccessObj->PrepareQuery("INSERT INTO la_comanda.order (product_id, quantity, table_id, client_name, order_code) VALUES (:product_id, :quantity, :table_id, :client_name, :order_code);");
-            $consulta->bindValue(':product_id', $this->product_id, PDO::PARAM_INT);
-            $consulta->bindValue(':quantity', $this->quantity, PDO::PARAM_INT);
-            $consulta->bindValue(':table_id', $this->table_id, PDO::PARAM_INT);
-            $consulta->bindValue(':client_name', $this->client_name, PDO::PARAM_STR);
-            $consulta->bindValue(':order_code', $this->order_code, PDO::PARAM_STR);
-            $consulta->execute();
-    
-            return $DBAccessObj->GetLastId();
-        }
+        // public static function GetAllOrders()
+        // {
+        //     $orders = Order::all();
 
-        public function jsonSerialize()
-        {
-            return [
-                'id' => $this->id,
-                'product_id' => $this->product_id,
-                'quantity' => $this->quantity,
-                'table_id' => $this->table_id,
-                'client_name' => $this->client_name,
-                'order_code' => $this->order_code,
-                'state' => $this->state,
-                'photo_path' => $this->photo_path,
-                'estimated_completion_on' => $this->estimated_completion_on,
-                'completed_on' => $this->completed_on,
-                'employee_id' => $this->employee_id
-            ];
-        }
+        //     for($i = 0; $i < count($orders); $i++)
+        //     {
+        //         $orders[$i]->products = array();
+        //         for($j = 0; $j < count($orders[$i]->pivot); $i++)
+        //         {
+        //             $newProduct = new stdClass();
+        //             $newProduct->quantity = $orders[$i]->pivot->quantity;
+        //             array_push($orders[$i]->products, $newProduct);
+        //         }
+        //     }
+
+        //     return $orders;
+        // }
+
+        // public function jsonSerialize()
+        // {
+        //     return [
+        //         'id' => $this->id,
+        //         'table_id' => $this->table_id,
+        //         'client_name' => $this->client_name,
+        //         'order_code' => $this->order_code,
+        //         'photo_path' => $this->photo_path,
+        //         'products' => $this->order_contains_products()
+        //     ];
+        // }
     }
 
 ?>

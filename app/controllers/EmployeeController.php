@@ -7,7 +7,8 @@
         public function GetEmployees($request, $response, $args)
         {
             $list = Employee::GetEmployees();
-            $payload = json_encode(array("Employee List" => $list));
+
+            $payload = json_encode(array("Product List" => $list));
   
             $response->getBody()->write($payload);
             return $response
@@ -20,13 +21,15 @@
             {
                 $parameters = $request->getParsedBody();
 
+                $name = $parameters['name'];
                 $type = $parameters['type'];
     
                 // Create Employee
                 $employee = new Employee();
                 $employee->SetType($type);
+                $employee->SetName($name);
 
-                $employee->SaveToDB();
+                $employee->save();
     
                 $payload = json_encode(array("mensaje" => "Empleado creado con exito"));
     

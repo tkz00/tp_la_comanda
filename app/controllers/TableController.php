@@ -6,8 +6,9 @@
     {
         public function GetTables($request, $response, $args)
         {
-            $list = Table::GetTables();
-            $payload = json_encode(array("Table List" => $list));
+            $list = Table::all();
+
+            $payload = json_encode(array("Product List" => $list));
   
             $response->getBody()->write($payload);
             return $response
