@@ -9,7 +9,12 @@
     class Order_Contains_Product extends Model
     {
         protected $table = 'order_contains_product';
-        protected $fillable = ['state', 'quantity'];
+        protected $fillable = ['state', 'quantity', 'employee_id', 'state'];
         public $timestamps = false;
+
+        public function products()
+        {
+            return $this->belongsTo(Product::class, 'product_id', 'id');
+        }
     }
 ?>

@@ -1,6 +1,6 @@
-- Reorganizar entidades, order tiene que tener varios "productos", hacer tabla intermedia de
-	pedidos que relacione la orden con sus pedidos, esta tabla intermedia es la que
-	debe tener el estado, las horas de entrega esperada y entrega y el employee_id, así se puede entregar
-	un producto de la orden sin entregar la orden completa.
-- Implementar middleware y jwt
-- Implementar ORM
+- ¿Que los empleados bartender, cocineros y cerveceros puedan ver las ordenes con estado pendiente? OK
+- El orderProduct solo debe poder ponerse en estado "listo para servir" por el empleado que tiene asignado. OK
+- Ingresando el codigo de la table y el codigo del pedido puede ver los tiempos restantes para sus pedidos. OK
+- Puntuación y reviews de los clientes.
+- Que el administrador pueda ver los detalles del sistema (final del pdf de requerimientos de la comanda).
+- Guardar CSV y PDF

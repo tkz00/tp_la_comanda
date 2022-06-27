@@ -41,6 +41,32 @@
             return $response
             ->withHeader('Content-Type', 'application/json');
         }
+
+        public function ChangeState($request, $response, $args)
+        {
+            try
+            {
+                $parameters = $request->getParsedBody();
+
+                $id = $parameters['id'];
+                $newState = $parameters['state'];
+    
+                // Update Table
+                $table = Table::find($id);
+                $table->state = $newState;
+                $table->save();
+    
+                $payload = json_encode(array("mensaje" => "Mesa modificada con exito"));
+            }
+            catch(Exception $e)
+            {
+                $payload = json_encode(array("mensaje" => $e->getMessage()));
+            }
+            
+            $response->getBody()->write($payload);
+            return $response
+            ->withHeader('Content-Type', 'application/json');
+        }
     }
 
 ?>

@@ -13,7 +13,7 @@
             $time = time();
             $payload = array(
                 'iat' => $time,
-                'exp' => $time + (60 * 60 * 24),
+                'exp' => $time + (60 * 60 * 24 * 28), // 28 días de validez
                 'aud' => self::Aud(),
                 'data' => $data,
                 'app' => 'La Comanda'
@@ -44,6 +44,11 @@
             if($result->aud !== self::Aud())
             {
                 throw new Exception("User not valid.");
+            }
+
+            if($result->data->active == 0)
+            {
+                throw new Exception("User not active.");
             }
         }
 

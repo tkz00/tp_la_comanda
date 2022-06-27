@@ -4,14 +4,33 @@
     require_once __DIR__ . '/../models/Order_Contains_Product.php';
     require_once __DIR__ . '/../models/Product.php';
 
+    define("imagesDirectory", "./OrderPhotos/");
+
     class OrderController
     {
         public function GetOrders($request, $response, $args)
         {
-            // $list = Order::all();
-            $list = Order::with('products')->get();
+            $header = $request->getHeaderLine('Authorization');
+            $token = trim(explode("Bearer", $header)[1]);
+            $payload = JWTAuthenticator::GetData($token);
 
-            $payload = json_encode(array("Product List" => $list));
+            switch($payload->type)
+            {
+                case "partner":
+                    $list = Order::with('products')->get();
+                    $payload = json_encode(array("Order list" => $list));
+                    break;
+                case "waiter":
+                    $list = Order_Contains_Product::with('products')->where('state', 'ready')->get();
+                    $payload = json_encode(array("Orders ready for delivery" => $list));
+                    break;
+                default:
+                    $list = Order_Contains_Product::with('products')->where('state', 'pending')->get();
+                    $payload = json_encode(array("Orders waiting for employee" => $list));
+                    break;
+            }
+
+
   
             $response->getBody()->write($payload);
             return $response
@@ -49,6 +68,24 @@
                 $order->order_code = $order_code;
                 $order->save();
 
+                
+                $uploadedImage = $request->getUploadedFiles()['photo'];
+                if(isset($uploadedImage))
+                {
+                    // Photo 
+                    if(!is_dir(imagesDirectory) && !mkdir(imagesDirectory, 0777, true))
+                    {
+                        die("Error creating photos folder " . imagesDirectory);
+                    }
+
+                    $photoName = $order->id . '_' . $order->client_name . '.' . pathinfo($uploadedImage->getClientFilename(), PATHINFO_EXTENSION);
+                    $photoPath = imagesDirectory . $photoName;
+                    $uploadedImage->moveTo($photoPath);
+
+                    $order->photo_path = $photoName;
+                    $order->save();
+                }
+
                 // Create order_product relation table in DB
                 $quantity = $parameters['quantity'];
 
@@ -57,11 +94,9 @@
                     $order_contains_product = new Order_Contains_Product();
                     $order_contains_product->order_id = $order->id;
                     $order_contains_product->product_id = $product_ids[$i];
-                    $order_contains_product->quantity = ($quantity[$i] != null) ? $quantity[$i] : 1;
+                    $order_contains_product->quantity = (isset($quantity[$i])) ? $quantity[$i] : 1;
                     $order_contains_product->save();
                 }
-
-                $test = $order->order_contains_products();
 
                 $payload = json_encode(array("mensaje" => "Order creado con exito"));
     
@@ -106,8 +141,6 @@
                             $order->employee_id = $parameters['employee_id'];
                             break;
                         case 'ready':
-                            break;
-                        case 'finished':
                             if(empty($parameters['completed_on']))
                             {
                                 throw new Exception("No se ha ingresado un tiempo de entrega.");

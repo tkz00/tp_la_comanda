@@ -1,0 +1,416 @@
+{
+	"info": {
+		"_postman_id": "1aecc46f-07b0-4236-a8e0-100f934def63",
+		"name": "TP La Comanda",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8409587"
+	},
+	"item": [
+		{
+			"name": "New Employee",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTU2MDc5MDIsImV4cCI6MTY1NTY5NDMwMiwiYXVkIjoiMzM3YWYyNDA0ZjA0NjJiNDA5NzQzYzRkMTBhYWNkNDA5YWJlZDAyNiIsImRhdGEiOnsiaWQiOjIsIm5hbWUiOiJKdWFuIiwiYWN0aXZlIjoxLCJkZWxldGVkIjowLCJ0eXBlIjoicGFydG5lciJ9LCJhcHAiOiJMYSBDb21hbmRhIn0.UVhz6f6XYQeHnUI6oy83iJUPZCPSKtQ69jmh6ZGqPvo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "type",
+							"value": "bartender",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "alberto",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:666/employees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Employees",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTU2MDQ2ODgsImV4cCI6MTY1NTY5MTA4OCwiYXVkIjoiMzM3YWYyNDA0ZjA0NjJiNDA5NzQzYzRkMTBhYWNkNDA5YWJlZDAyNiIsImRhdGEiOnsiaWQiOjIsIjAiOjIsIm5hbWUiOiJKdWFuIiwiMSI6Ikp1YW4iLCJhY3RpdmUiOjEsIjIiOjEsImRlbGV0ZWQiOjAsIjMiOjAsInR5cGUiOiJwYXJ0bmVyIiwiNCI6InBhcnRuZXIifSwiYXBwIjoiTGEgQ29tYW5kYSJ9.w3nUESK25BggNKl3pqSD3zdS-_KaaHCD1mzfys0exNo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:666/employees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Product",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUzOTQwNzIsImV4cCI6MTY1NTQ4MDQ3MiwiYXVkIjoiMzM3YWYyNDA0ZjA0NjJiNDA5NzQzYzRkMTBhYWNkNDA5YWJlZDAyNiIsImRhdGEiOnsiaWQiOjIsIjAiOjIsIm5hbWUiOiJKdWFuIiwiMSI6Ikp1YW4iLCJhY3RpdmUiOjEsIjIiOjEsImRlbGV0ZWQiOjAsIjMiOjAsInR5cGUiOiJwYXJ0bmVyIiwiNCI6InBhcnRuZXIifSwiYXBwIjoiTGEgQ29tYW5kYSJ9.7-Sr8j6Z7p0mfC8x5bptfRvHAllaidZ57sx9XMj5rKg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Fernet",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "qweqwew",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "9.99",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:666/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Products",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTU2MDQ2ODgsImV4cCI6MTY1NTY5MTA4OCwiYXVkIjoiMzM3YWYyNDA0ZjA0NjJiNDA5NzQzYzRkMTBhYWNkNDA5YWJlZDAyNiIsImRhdGEiOnsiaWQiOjIsIjAiOjIsIm5hbWUiOiJKdWFuIiwiMSI6Ikp1YW4iLCJhY3RpdmUiOjEsIjIiOjEsImRlbGV0ZWQiOjAsIjMiOjAsInR5cGUiOiJwYXJ0bmVyIiwiNCI6InBhcnRuZXIifSwiYXBwIjoiTGEgQ29tYW5kYSJ9.w3nUESK25BggNKl3pqSD3zdS-_KaaHCD1mzfys0exNo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:666/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Tables",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTU2MDQ2ODgsImV4cCI6MTY1NTY5MTA4OCwiYXVkIjoiMzM3YWYyNDA0ZjA0NjJiNDA5NzQzYzRkMTBhYWNkNDA5YWJlZDAyNiIsImRhdGEiOnsiaWQiOjIsIjAiOjIsIm5hbWUiOiJKdWFuIiwiMSI6Ikp1YW4iLCJhY3RpdmUiOjEsIjIiOjEsImRlbGV0ZWQiOjAsIjMiOjAsInR5cGUiOiJwYXJ0bmVyIiwiNCI6InBhcnRuZXIifSwiYXBwIjoiTGEgQ29tYW5kYSJ9.w3nUESK25BggNKl3pqSD3zdS-_KaaHCD1mzfys0exNo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:666/tables",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"tables"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Table",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:666/tables",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"tables"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Order",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var moment = require('moment');\r",
+							"pm.globals.set(\"CurrentDatetime\", moment().format())"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTU3MzkzNDIsImV4cCI6MTY1NTgyNTc0MiwiYXVkIjoiMzM3YWYyNDA0ZjA0NjJiNDA5NzQzYzRkMTBhYWNkNDA5YWJlZDAyNiIsImRhdGEiOnsiaWQiOjIsIm5hbWUiOiJKdWFuIiwiYWN0aXZlIjoxLCJkZWxldGVkIjowLCJ0eXBlIjoicGFydG5lciJ9LCJhcHAiOiJMYSBDb21hbmRhIn0.poXtdQ8HBnWlmehDOOJmSq77PVUAPsVvvMQxjHS3AB0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "table_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "client_name",
+							"value": "juan",
+							"type": "text"
+						},
+						{
+							"key": "order_code",
+							"value": "testt",
+							"type": "text"
+						},
+						{
+							"key": "product_id[0]",
+							"value": "6",
+							"type": "text"
+						},
+						{
+							"key": "product_id[1]",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "quantity[0]",
+							"value": "1",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "quantity[1]",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:666/order",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Orders",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTU2MDQ2ODgsImV4cCI6MTY1NTY5MTA4OCwiYXVkIjoiMzM3YWYyNDA0ZjA0NjJiNDA5NzQzYzRkMTBhYWNkNDA5YWJlZDAyNiIsImRhdGEiOnsiaWQiOjIsIjAiOjIsIm5hbWUiOiJKdWFuIiwiMSI6Ikp1YW4iLCJhY3RpdmUiOjEsIjIiOjEsImRlbGV0ZWQiOjAsIjMiOjAsInR5cGUiOiJwYXJ0bmVyIiwiNCI6InBhcnRuZXIifSwiYXBwIjoiTGEgQ29tYW5kYSJ9.w3nUESK25BggNKl3pqSD3zdS-_KaaHCD1mzfys0exNo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://localhost:666/order",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetJWT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Juan",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:666/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Order State",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTU2OTQ2ODQsImV4cCI6MTY1NTc4MTA4NCwiYXVkIjoiMzM3YWYyNDA0ZjA0NjJiNDA5NzQzYzRkMTBhYWNkNDA5YWJlZDAyNiIsImRhdGEiOnsiaWQiOjIsIm5hbWUiOiJKdWFuIiwiYWN0aXZlIjoxLCJkZWxldGVkIjowLCJ0eXBlIjoicGFydG5lciJ9LCJhcHAiOiJMYSBDb21hbmRhIn0.z0226M7hwesEZojNXQZVKczeuO11iL2HN1BTqETzd48",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "state",
+							"value": "finished",
+							"type": "text"
+						},
+						{
+							"key": "estimated_completion_on",
+							"value": "2022-06-20 11:37:24",
+							"type": "text"
+						},
+						{
+							"key": "completed_on",
+							"value": "2022-06-20 12:01:33",
+							"type": "text"
+						},
+						{
+							"key": "employee_id",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:666/order/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"order",
+						"update"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

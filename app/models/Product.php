@@ -11,15 +11,7 @@
     class Product extends Model implements JsonSerializable
     {
         protected $table = 'product';
-        // private $id;
-        // private $title;
-        // private $type;
-        // private $price;
-
-        // public static function GetProducts()
-        // {
-        //     return Product::all();
-        // }
+        public $timestamps = false;
 
         public function SetTitle(string $newTitle)
         {
@@ -45,29 +37,6 @@
         {
             return $this->belongsToMany(Order::class, 'Order_Contains_Product', 'product_id', 'order_id');
         }
-
-        // public static function GetProducts()
-        // {
-        //     $objDBAccess = DBAccess::GetInstance();
-        //     $consulta = $objDBAccess->PrepareQuery("SELECT * FROM product");
-        //     $consulta->execute();
-    
-        //     $test = $consulta->fetchAll(PDO::FETCH_CLASS, 'product');
-        //     return $test;
-        // }
-
-
-        // public function SaveToDB()
-        // {
-        //     $DBAccessObj = DBAccess::GetInstance();
-        //     $consulta = $DBAccessObj->PrepareQuery("INSERT INTO product (title, type, price) VALUES (:title, :type, :price)");
-        //     $consulta->bindValue(':title', $this->title, PDO::PARAM_STR);
-        //     $consulta->bindValue(':type', $this->type, PDO::PARAM_STR);
-        //     $consulta->bindValue(':price', $this->price);
-        //     $consulta->execute();
-    
-        //     return $DBAccessObj->GetLastId();
-        // }
 
         public function jsonSerialize()
         {
