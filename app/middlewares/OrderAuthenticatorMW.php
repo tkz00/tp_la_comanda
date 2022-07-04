@@ -80,6 +80,11 @@
                     $response->getBody()->write(json_encode(array("mensaje" => "No se tiene un token válido para realizar esta acción.")));
                 }
             }
+            else
+            {
+                $response = new Response();
+                $response->getBody()->write(json_encode(array("mensaje" => "No se tiene un token válido para realizar esta acción.")));
+            }
 
             return $response;
         }

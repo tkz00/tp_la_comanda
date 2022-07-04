@@ -3,6 +3,9 @@
     require_once __DIR__ . '/../models/Order.php';
     require_once __DIR__ . '/../models/Order_Contains_Product.php';
     require_once __DIR__ . '/../models/Product.php';
+    require_once __DIR__ . '/../resources/pdf.css';
+
+    use Mpdf\Mpdf;
 
     define("imagesDirectory", "./OrderPhotos/");
 
@@ -168,6 +171,81 @@
             $response->getBody()->write($payload);
             return $response
             ->withHeader('Content-Type', 'application/json');
+        }
+
+        public function GetPdf($request, $response, $args)
+        {
+            try
+            {
+                $list = Order::with('products')->get();
+                
+                $html = "";
+
+                $html .= '<table style="border-collapse: collapse; width: 100%; border: 1px solid black;">';
+
+                $html .= "<tr>";
+                $html .= "<th>Id</th>";
+                $html .= "<th>Table Id</th>";
+                $html .= "<th>Client Name</th>";
+                $html .= "<th>Order Code</th>";
+                $html .= "<th>Products (quantity)</th>";
+                $html .= "<th>Photo</th>";
+                $html .= "</tr>";
+
+                for($i = 0; $i < count($list); $i++)
+                {
+                    $html .= "<tr>";
+                    $html .= "<td>" . $list[$i]->id . "</td>";
+                    $html .= "<td>" . $list[$i]->table_id . "</td>";
+                    $html .= "<td>" . $list[$i]->client_name . "</td>";
+                    $html .= "<td>" . $list[$i]->order_code . "</td>";
+
+                    if($list[$i]->products)
+                    {
+                        $html .= "<td>";
+
+                        for($j = 0; $j < count($list[$i]->products); $j++)
+                        {
+                            $html .= $list[$i]->products[$j]->title . " (" . $list[$i]->products[$j]->pivot->quantity . ")" . "<br>";
+                        }
+                        
+                        $html .= "</td>";
+                    }
+
+                    $html .= "<td>";
+
+                    if($list[$i]->photo_path)
+                    {
+                        $html .= '<img src="' . imagesDirectory . $list[$i]->photo_path . '" alt="" height=100></img>';
+                    }
+
+                    $html .= "</td>";
+
+                    $html .= "</tr>";
+                }
+
+                $html .= "</table>";
+
+                $mpdf = new Mpdf();
+
+                $styleSheet = file_get_contents(__DIR__ . '/../resources/pdf.css');
+
+                $mpdf->WriteHTML($styleSheet, 1);
+                
+                $mpdf->WriteHTML($html, 2);
+                
+                $mpdf->Output();
+
+                $payload = json_encode(array("mensaje" => "Se genero el PDF con exito"));
+            }
+            catch(Exception $e)
+            {
+                $payload = json_encode(array("mensaje" => $e->getMessage()));
+            }
+
+            $response->getBody()->write($payload);
+            return $response
+              ->withHeader('Content-Type', 'application/json');
         }
     }
 

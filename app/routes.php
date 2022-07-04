@@ -27,7 +27,9 @@
         
           $app->group('/products', function (RouteCollectorProxy $group) {
             $group->get('[/]', \ProductController::class . ':GetProducts');
+            $group->get('/csv', \ProductController::class . ':ProductsCSV');
             $group->post('[/]', \ProductController::class . ':AddProduct');
+            $group->post('/csv', \ProductController::class . ':LoadCSV');
           })->add(JWTAuthenticatorMW::class);
         
           $app->group('/tables', function (RouteCollectorProxy $group) {
@@ -38,6 +40,7 @@
         
           $app->group('/order', function (RouteCollectorProxy $group) {
             $group->get('[/]', \OrderController::class . ':GetOrders');
+            $group->get('/getPdf', \OrderController::class . ':GetPdf');
             $group->post('[/]', \OrderController::class . ':AddOrder');
             $group->post('/update', \OrderController::class . ':UpdateState');
           })->add(OrderAuthenticatorMW::class);
