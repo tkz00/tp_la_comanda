@@ -5,7 +5,6 @@
     use Illuminate\Database\Eloquent\Model;
 
     require_once __DIR__ . '/../enums/ProductTypeEnum.php';
-    require_once __DIR__ . '/../db/DBAccess.php';
     require_once __DIR__ . '/../db/eloquentDatabase.php';
 
     class Product extends Model implements JsonSerializable

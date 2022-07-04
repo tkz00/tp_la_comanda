@@ -8,11 +8,13 @@
     require_once './controllers/OrderController.php';
     require_once './controllers/TokenController.php';
     require_once './controllers/ClientController.php';
+    require_once './controllers/StatisticsController.php';
 
     require_once './middlewares/JWTAuthenticator.php';
     require_once './middlewares/JWTAuthenticatorMW.php';
     require_once './middlewares/OrderAuthenticatorMW.php';
     require_once './middlewares/TableAuthenticatorMW.php';
+    require_once './middlewares/StatisticsAuthenticatorMW.php';
 
     use Slim\App;
     use Slim\Routing\RouteCollectorProxy;
@@ -44,6 +46,10 @@
             $group->post('[/]', \OrderController::class . ':AddOrder');
             $group->post('/update', \OrderController::class . ':UpdateState');
           })->add(OrderAuthenticatorMW::class);
+
+          $app->group('/statistics', function (RouteCollectorProxy $group) {
+            $group->get('[/]', \StatisticsController::class . ':GetStatistics');
+          })->add(StatisticsAuthenticatorMW::class);
 
           $app->group('/token', function(RouteCollectorProxy $group){
             $group->post('[/]', \TokenController::class . ':GetToken');

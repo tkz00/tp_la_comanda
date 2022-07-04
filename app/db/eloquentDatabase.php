@@ -16,7 +16,6 @@
     ]);
 
     $database->setAsGlobal();
-
     $database->bootEloquent();
 
 ?>

@@ -3,7 +3,6 @@
     require_once __DIR__ . '/../models/Order.php';
     require_once __DIR__ . '/../models/Order_Contains_Product.php';
     require_once __DIR__ . '/../models/Product.php';
-    require_once __DIR__ . '/../resources/pdf.css';
 
     use Mpdf\Mpdf;
 
@@ -227,6 +226,8 @@
                 $html .= "</table>";
 
                 $mpdf = new Mpdf();
+
+                require_once __DIR__ . '/../resources/pdf.css';
 
                 $styleSheet = file_get_contents(__DIR__ . '/../resources/pdf.css');
 
