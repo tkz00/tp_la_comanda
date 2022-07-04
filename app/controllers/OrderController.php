@@ -71,21 +71,24 @@
                 $order->save();
 
                 
-                $uploadedImage = $request->getUploadedFiles()['photo'];
-                if(isset($uploadedImage))
+                if($request->getUploadedFiles()['photo'])
                 {
-                    // Photo 
-                    if(!is_dir(imagesDirectory) && !mkdir(imagesDirectory, 0777, true))
+                    $uploadedImage = $request->getUploadedFiles()['photo'];
+                    if(isset($uploadedImage))
                     {
-                        die("Error creating photos folder " . imagesDirectory);
+                        // Photo 
+                        if(!is_dir(imagesDirectory) && !mkdir(imagesDirectory, 0777, true))
+                        {
+                            die("Error creating photos folder " . imagesDirectory);
+                        }
+
+                        $photoName = $order->id . '_' . $order->client_name . '.' . pathinfo($uploadedImage->getClientFilename(), PATHINFO_EXTENSION);
+                        $photoPath = imagesDirectory . $photoName;
+                        $uploadedImage->moveTo($photoPath);
+
+                        $order->photo_path = $photoName;
+                        $order->save();
                     }
-
-                    $photoName = $order->id . '_' . $order->client_name . '.' . pathinfo($uploadedImage->getClientFilename(), PATHINFO_EXTENSION);
-                    $photoPath = imagesDirectory . $photoName;
-                    $uploadedImage->moveTo($photoPath);
-
-                    $order->photo_path = $photoName;
-                    $order->save();
                 }
 
                 // Create order_product relation table in DB

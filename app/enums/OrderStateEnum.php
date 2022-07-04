@@ -6,7 +6,7 @@
         const pending       =   0;
         const preparation   =   1;
         const ready         =   2;
-        const finished      =   3;
+        const cancelled     =   3;
     }
 
 ?>
